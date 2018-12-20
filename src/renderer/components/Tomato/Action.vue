@@ -1,7 +1,13 @@
 <template>
   <section class="section tomato-action has-text-centered">
-    <button class="button is-warning btn-start">START</button>
-    <button class="button btn-reset">RESET</button>
+    <button
+      class="button is-warning btn-start"
+      @click="doStart"
+    >START</button>
+    <button
+      class="button btn-reset"
+      @click="doReset"
+    >RESET</button>
   </section>
 </template>
 
@@ -9,12 +15,15 @@
 export default {
   data () {
     return {
-      electron: process.versions.electron,
-      name: this.$route.name,
-      node: process.versions.node,
-      path: this.$route.path,
-      platform: require('os').platform(),
-      vue: require('vue/package.json').version
+
+    }
+  },
+  methods: {
+    doStart () {
+      console.log('start tomato')
+    },
+    doReset () {
+      console.log('reset tomato')
     }
   }
 }
@@ -22,11 +31,13 @@ export default {
 
 <style scoped>
 .tomato-action {
-  padding: 1rem;
+  padding-top: 2rem;
 }
+
 .tomato-action button {
-  width: 120px;
-  height: 45px;
+  width: 130px;
+  height: 40px;
+  font-size: 18px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 </style>

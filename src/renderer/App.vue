@@ -5,11 +5,14 @@
 </template>
 
 <script>
-  export default {
-    name: 'tomato-clock'
-  }
+export default {
+  name: 'tomato-clock'
+}
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
+#app .section {
+  padding: 1rem 1rem 0 1rem;
+}
 </style>

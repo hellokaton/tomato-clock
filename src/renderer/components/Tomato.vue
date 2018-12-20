@@ -20,9 +20,12 @@
       </div>
       <timer></timer>
       <action></action>
-      <progress></progress>
-      <div>
-        <h2 class="title">this is footer</h2>
+      <planned></planned>
+      <div
+        class="has-text-centered"
+        style="padding-top: 2rem;"
+      >
+        <span>Power by <a href="https://github.com/biezhi">biezhi</a></span>
       </div>
     </main>
   </div>
@@ -31,11 +34,11 @@
 <script>
 import Timer from './Tomato/Timer'
 import Action from './Tomato/Action'
-import Progress from './Tomato/Progress'
+import Planned from './Tomato/Planned'
 
 export default {
   name: 'tomato',
-  components: { Timer, Action, Progress },
+  components: { Timer, Action, Planned },
   methods: {
     open (link) {
       this.$electron.shell.openExternal(link)
