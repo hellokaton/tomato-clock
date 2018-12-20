@@ -1,23 +1,21 @@
 # tomato-clock
 
-> An electron-vue project
+> An electron-vue tomato-clock application.
 
 #### Build Setup
 
 ``` bash
 # install dependencies
-npm install
+sudo yarn
 
 # serve with hot reload at localhost:9080
-npm run dev
+yarn run dev
 
 # build electron application for production
-npm run build
-
+yarn run build
 
 # lint all JS/Vue component files in `src/`
 npm run lint
-
 ```
 
 ---
