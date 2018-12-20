@@ -10,6 +10,11 @@ export default new Router({
     component: require('@/components/Tomato').default
   },
   {
+    path: '/chart',
+    name: 'chart',
+    component: require('@/components/Chart').default
+  },
+  {
     path: '*',
     redirect: '/'
   }
