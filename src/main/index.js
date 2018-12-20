@@ -6,7 +6,7 @@ import {
 
 import path from 'path'
 import TrayBar from 'menubar'
-import createMenu from './menu.js'
+import createMenu from './menu'
 
 /**
  * Set `__static` path to static files in production
@@ -27,29 +27,11 @@ const tray = TrayBar({
   height: 300,
   showDockIcon: true
 })
-// let mainWindow
 
 function createWindow () {
   console.log('启动 app.')
-
   tray.showWindow()
   createMenu()
-
-  /**
-   * Initial window options
-   */
-  // mainWindow = new BrowserWindow({
-  //   height: 563,
-  //   useContentSize: true,
-  //   width: 1000,
-  //   show: true
-  // })
-
-  // mainWindow.loadURL(menuURL)
-
-  // mainWindow.on('closed', () => {
-  //   mainWindow = null
-  // })
 }
 
 app.on('ready', createWindow)

@@ -1,7 +1,7 @@
 <template>
-  <div class="timer">
-    25:00
-  </div>
+  <section class="section">
+    <h1 class="title is-1">25:00</h1>
+  </section>
 </template>
 
 <script>

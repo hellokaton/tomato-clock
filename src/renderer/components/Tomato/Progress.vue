@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section class="section">
     <ul>
       <li>0</li>
       <li>0</li>
@@ -7,7 +7,7 @@
       <li>0</li>
       <li>0</li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>

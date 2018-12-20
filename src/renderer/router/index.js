@@ -15,6 +15,11 @@ export default new Router({
     component: require('@/components/Chart').default
   },
   {
+    path: '/settings',
+    name: 'settings',
+    component: require('@/components/Settings').default
+  },
+  {
     path: '*',
     redirect: '/'
   }

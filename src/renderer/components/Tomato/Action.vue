@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <button class="btn-start">START</button>
-    <button class="btn-reset">RESET</button>
-  </div>
+  <section class="section">
+    <button class="button is-warning btn-start">START</button>
+    <button class="button btn-reset">RESET</button>
+  </section>
 </template>
 
 <script>
