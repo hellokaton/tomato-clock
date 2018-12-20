@@ -15,7 +15,7 @@ yarn run dev
 yarn run build
 
 # lint all JS/Vue component files in `src/`
-npm run lint
+yarn run lint
 ```
 
 ---
