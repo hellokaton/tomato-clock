@@ -1,6 +1,9 @@
 <template>
   <div id="wrapper">
     <main>
+      This is Chart Page.
+      <br>
+      <a href="/">回到首页</a>
     </main>
   </div>
 </template> 

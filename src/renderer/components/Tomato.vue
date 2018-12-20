@@ -3,28 +3,33 @@
     <main class="container">
       <div class="header">
         <div class="is-pulled-right">
-          <span class="icon">
-            <i class="fas fa-lg fa-chart-bar"></i>
-          </span>
+          <b-dropdown :mobile-modal="false">
+            <button
+              class="button is-primary is-small"
+              slot="trigger"
+            >
+              <span>Tomato</span>
+              <span class="icon">
+                <i class="fas fa-chevron-down"></i>
+              </span>
+            </button>
+
+            <b-dropdown-item @click="go('/settings')">Settings</b-dropdown-item>
+            <b-dropdown-item @click="go('/chart')">Chart</b-dropdown-item>
+            <b-dropdown-item @click="exit">Exit</b-dropdown-item>
+
+          </b-dropdown>
+
+          <!-- <router-link to="/chart">
+            <span class="icon">
+              <i class="fas fa-lg fa-chart-bar"></i>
+            </span>
+          </router-link> -->
         </div>
       </div>
       <timer></timer>
-      <action></action>
       <planned></planned>
       <div class="tomato-footer has-text-centered">
-        <div class="is-pulled-left">
-          <span
-            class="icon"
-            @click="exit"
-          >
-            <i class="fas fa-lg fa-sign-out-alt"></i>
-          </span>
-        </div>
-        <div class="is-pulled-right">
-          <span class="icon">
-            <i class="fas fa-lg fa-cog"></i>
-          </span>
-        </div>
         <span>Power by <a href="https://github.com/biezhi">biezhi</a></span>
       </div>
     </main>
@@ -33,17 +38,18 @@
  
 <script>
 import Timer from './Tomato/Timer'
-import Action from './Tomato/Action'
 import Planned from './Tomato/Planned'
-
 import { remote } from 'electron'
 
 export default {
   name: 'tomato',
-  components: { Timer, Action, Planned },
+  components: { Timer, Planned },
   methods: {
     exit () {
       remote.app.quit()
+    },
+    go (path) {
+      window.location.hash = path
     }
   }
 }
@@ -59,6 +65,12 @@ export default {
   height: 300px;
   padding: 1.3rem 1rem;
 }
+
+#wrapper .dropdown-menu {
+  min-width: 5rem;
+  max-width: 5rem;
+}
+
 .header .icon {
   color: #a4fe65;
 }
