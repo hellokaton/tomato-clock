@@ -28,8 +28,7 @@
       "dist/electron/**/*"
     ],
     "dmg": {
-      "contents": [
-        {
+      "contents": [{
           "x": 410,
           "y": 150,
           "type": "link",
@@ -54,6 +53,7 @@
   },
   "dependencies": {
     "buefy": "^0.7.1",
+    "@fortawesome/fontawesome-free": "^5.6.1",
     "menubar": "^5.2.3",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
@@ -62,7 +62,6 @@
     "vuex-electron": "^1.0.0"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.1",
     "ajv": "^6.5.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",

@@ -3,21 +3,26 @@
     <main class="container">
       <div class="header">
         <div class="is-pulled-left">
-          aaa
+          <b-icon
+            pack="fas"
+            icon="home"
+            type="is-white"
+          >
+          </b-icon>
         </div>
         <div class="is-pulled-right">
           <b-icon
-            icon="view-dashboard"
-            size="is-large"
-            type="is-primary"
+            pack="fas"
+            icon="tachometer-alt"
           >
           </b-icon>
         </div>
       </div>
       <timer></timer>
       <action></action>
-      <div class="footer">
-        底部菜单
+      <progress></progress>
+      <div>
+        <h2 class="title">this is footer</h2>
       </div>
     </main>
   </div>
@@ -46,6 +51,7 @@ export default {
     rgb(215, 61, 238) 40%,
     rgba(170, 67, 255, 0.755) 100%
   );
-  padding: 1.5rem;
+  height: 300px;
+  padding: 1.3rem 1rem;
 }
 </style>

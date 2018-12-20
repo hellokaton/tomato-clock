@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section class="section tomato-action has-text-centered">
     <button class="button is-warning btn-start">START</button>
     <button class="button btn-reset">RESET</button>
   </section>
@@ -21,7 +21,12 @@ export default {
 </script>
 
 <style scoped>
-.btn-start {
-  background: #ccc;
+.tomato-action {
+  padding: 1rem;
+}
+.tomato-action button {
+  width: 120px;
+  height: 45px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 </style>

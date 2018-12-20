@@ -1,6 +1,6 @@
 <template>
-  <section class="section">
-    <h1 class="title is-1">25:00</h1>
+  <section class="section tomato-timer has-text-centered">
+    <h1 class="title">25:00</h1>
   </section>
 </template>
 
@@ -20,8 +20,12 @@ export default {
 </script>
 
 <style scoped>
-.timer {
-  font-size: 48px;
-  font-weight: bold;
+.tomato-timer {
+  padding: 3rem 1rem 0;
+}
+.tomato-timer h1 {
+  font-size: 80px;
+  color: white;
+  font-family: monospace;
 }
 </style>
