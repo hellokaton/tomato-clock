@@ -2,29 +2,29 @@
   <div id="wrapper">
     <main class="container">
       <div class="header">
-        <div class="is-pulled-left">
-          <b-icon
-            pack="fas"
-            icon="home"
-            type="is-white"
-          >
-          </b-icon>
-        </div>
         <div class="is-pulled-right">
-          <b-icon
-            pack="fas"
-            icon="tachometer-alt"
-          >
-          </b-icon>
+          <span class="icon">
+            <i class="fas fa-lg fa-chart-bar"></i>
+          </span>
         </div>
       </div>
       <timer></timer>
       <action></action>
       <planned></planned>
-      <div
-        class="has-text-centered"
-        style="padding-top: 2rem;"
-      >
+      <div class="tomato-footer has-text-centered">
+        <div class="is-pulled-left">
+          <span
+            class="icon"
+            @click="exit"
+          >
+            <i class="fas fa-lg fa-sign-out-alt"></i>
+          </span>
+        </div>
+        <div class="is-pulled-right">
+          <span class="icon">
+            <i class="fas fa-lg fa-cog"></i>
+          </span>
+        </div>
         <span>Power by <a href="https://github.com/biezhi">biezhi</a></span>
       </div>
     </main>
@@ -36,18 +36,20 @@ import Timer from './Tomato/Timer'
 import Action from './Tomato/Action'
 import Planned from './Tomato/Planned'
 
+import { remote } from 'electron'
+
 export default {
   name: 'tomato',
   components: { Timer, Action, Planned },
   methods: {
-    open (link) {
-      this.$electron.shell.openExternal(link)
+    exit () {
+      remote.app.quit()
     }
   }
 }
 </script>
 
-<style>
+<style scope>
 #wrapper {
   background: radial-gradient(
     ellipse at top left,
@@ -56,5 +58,15 @@ export default {
   );
   height: 300px;
   padding: 1.3rem 1rem;
+}
+.header .icon {
+  color: #a4fe65;
+}
+.tomato-footer {
+  padding-top: 2rem;
+}
+.tomato-footer .icon {
+  color: #ebe7e7;
+  opacity: 0.9;
 }
 </style>

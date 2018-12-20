@@ -25,7 +25,7 @@ const tray = TrayBar({
   icon: process.env.NODE_ENV === 'development' ? path.join(__dirname, 'assets/clockTemplate.png') : path.join(__dirname, '../app/assets/clockTemplate.png'),
   width: 400,
   height: 300,
-  showDockIcon: true
+  showDockIcon: false
 })
 
 function createWindow () {
@@ -34,16 +34,6 @@ function createWindow () {
   createMenu()
 }
 
+// app.dock.hide()
+
 app.on('ready', createWindow)
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-// app.on('activate', () => {
-//   // if (mainWindow === null) {
-//   //   createWindow()
-//   // }
-// })
