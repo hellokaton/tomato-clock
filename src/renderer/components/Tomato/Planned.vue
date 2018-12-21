@@ -26,6 +26,7 @@ export default {
 <style scoped>
 .tomato-planned {
   padding-top: 1rem;
+  padding-bottom: 0;
 }
 .tomato-planned span.icon {
   font-size: 15px;

@@ -95,7 +95,7 @@ export default {
 }
 
 .tomato-action button {
-  width: 130px;
+  width: 150px;
   height: 40px;
   font-size: 18px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;

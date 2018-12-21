@@ -90,13 +90,11 @@ export default {
 
 <style scope>
 #wrapper {
-  background: radial-gradient(
-    ellipse at top left,
-    rgb(215, 61, 238) 40%,
-    rgba(170, 67, 255, 0.755) 100%
-  );
+  background-color: #fc5296;
+  background-image: linear-gradient(315deg, #fc5296 0%, #f67062 74%);
   height: 100%;
   padding: 1.3rem 1rem;
+  overflow-y: hidden;
 }
 
 #wrapper .dropdown-menu {
@@ -108,7 +106,7 @@ export default {
   color: #a4fe65;
 }
 .tomato-footer {
-  padding-top: 2rem;
+  padding-top: 0.3rem;
 }
 .tomato-footer .icon {
   color: #ebe7e7;

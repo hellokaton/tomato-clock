@@ -25,7 +25,7 @@ let win = null
 
 function readyMainProcess () {
   if (tray == null) {
-    tray = new Tray(path.join(__static, '/icons/16x16.png'))
+    tray = new Tray(path.join(__static, '/icons/24x24.png'))
     tray.on('click', () => {
       win.isVisible() ? win.hide() : win.show()
     })
