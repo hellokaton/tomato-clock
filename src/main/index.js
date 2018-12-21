@@ -38,7 +38,7 @@ function readyMainProcess () {
         frame: false,
         x: bounds.x - 200,
         y: bounds.y + 20,
-        center: false,
+        closable: false,
         show: process.env.NODE_ENV === 'development'
       })
       win.loadURL(menuURL)
@@ -51,7 +51,7 @@ app.dock.hide()
 app.on('ready', readyMainProcess)
 
 app.on('quit', () => {
-  console.log('quit evetn')
-  tray = null
+  console.log('app quit')
   win = null
+  tray = null
 })

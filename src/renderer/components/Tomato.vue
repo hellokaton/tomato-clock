@@ -5,7 +5,7 @@
         <div class="is-pulled-right">
           <b-dropdown :mobile-modal="false">
             <button
-              class="button is-info is-small"
+              class="button is-primary is-small"
               slot="trigger"
             >
               <span>Tomato</span>
@@ -23,7 +23,7 @@
       <timer></timer>
       <planned></planned>
       <div class="tomato-footer has-text-centered">
-        <span>Power by <a href="https://github.com/biezhi">biezhi</a></span>
+        <span>Power by <a @click="openAuthorURL">biezhi</a></span>
       </div>
     </main>
   </div>
@@ -49,14 +49,17 @@ export default {
   components: { Timer, Planned },
   methods: {
     exit () {
-      remote.app.quit()
+      remote.app.exit()
+    },
+    openAuthorURL () {
+      window.top.open('https://github.com/biezhi')
     },
     openChart () {
       remote.getCurrentWindow().hide()
       if (chartWin == null) {
         chartWin = new remote.BrowserWindow({
-          width: 680,
-          height: 450,
+          width: 960,
+          height: 260,
           frame: false,
           center: true
         })

@@ -1,10 +1,9 @@
 <template>
   <div id="wrapper">
-    <main>
-      This is Chart Page.
-      <br>
-      <a href="/">回到首页</a>
-    </main>
+    <calendar-heatmap
+      :values="[{ date: '2018-9-22', count: 6 }]"
+      :end-date="2018-12-30"
+    />
   </div>
 </template> 
  
