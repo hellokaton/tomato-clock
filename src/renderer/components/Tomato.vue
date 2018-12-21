@@ -73,7 +73,7 @@ export default {
       if (settingsWin == null) {
         settingsWin = new remote.BrowserWindow({
           width: 400,
-          height: 500,
+          height: 300,
           frame: false,
           center: true
         })

@@ -18,23 +18,30 @@
 </template>
 
 <script>
+
+import db from '../../store'
+
 export default {
   data () {
     return {
       // Settings
-      initWork: 25,
+      initWork: 20,
       initShortBreak: 5,
 
       // App state
       isBreakTime: false,
       isTimerActive: false,
-      minutes: 25,
+      minutes: 20,
       seconds: '00',
       timer: null,
       round: 0,
       // UI
       isModalOpen: false
     }
+  },
+  created () {
+    this.initWork = parseInt(db.get('setting').get('work_mins').value())
+    this.minutes = this.initWork
   },
   methods: {
     toggleModal: function () {
