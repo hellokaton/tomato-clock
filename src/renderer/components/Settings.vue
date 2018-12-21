@@ -17,13 +17,13 @@
           </b-select>
         </b-field>
 
-        <b-field label="Break time">
+        <b-field label="Sleep time">
           <b-select
             placeholder="Select time"
-            v-model='setting.break_mins'
+            v-model='setting.sleep_mins'
           >
             <option
-              v-for="item in breakTimes"
+              v-for="item in sleepTimes"
               :value="item"
               :key="item"
             >
@@ -61,16 +61,15 @@ export default {
   data () {
     return {
       workTimes: [15, 20, 25, 30],
-      breakTimes: [1, 2, 3, 4, 5, 10],
+      sleepTimes: [1, 2, 3, 4, 5, 10],
       setting: {
         work_mins: 0,
-        break_mins: 0
+        sleep_mins: 0
       }
     }
   },
   created () {
-    this.setting.work_mins = parseInt(db.get('setting').get('work_mins').value())
-    this.setting.break_mins = parseInt(db.get('setting').get('break_mins').value())
+    this.setting = db.get('setting').value()
   },
   methods: {
     cancelSetting () {

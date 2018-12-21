@@ -22,7 +22,7 @@ if (!db.has('setting').value()) {
     tomatos: [],
     setting: {
       'work_mins': 25,
-      'break_mins': 5
+      'sleep_mins': 5
     }
   }).write()
 }

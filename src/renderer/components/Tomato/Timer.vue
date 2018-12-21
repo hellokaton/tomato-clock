@@ -14,8 +14,8 @@
         @click="resetUI"
       >RESET</button>
       <button
-        class="button btn-reset"
-        @click="startSleep"
+        class="button is-primary"
+        @click="finisheOnce"
       >TEST</button>
     </section>
   </div>
@@ -36,6 +36,7 @@ export default {
       // Settings
       initWork: 20,
       initShortBreak: 5,
+      initSleepTime: 5,
 
       // App state
       isBreakTime: false,
@@ -47,6 +48,7 @@ export default {
   },
   created () {
     this.initWork = parseInt(db.get('setting').get('work_mins').value())
+    this.initSleepTime = parseInt(db.get('setting').get('sleep_mins').value())
     this.minutes = this.initWork
   },
   methods: {
@@ -57,9 +59,28 @@ export default {
       this.seconds = '00'
       clearInterval(this.timer)
     },
-    startSleep () {
-      console.log('完成一个钟，开始休息，重置时间')
-      self.minutes = self.initWork
+    finisheOnce () {
+      clearInterval(this.timer)
+      this.minutes = this.initWork
+      this.isTimerActive = false
+      this.isBreakTime = true
+
+      const today = this.todayDate()
+      const todayTomato = db.get('tomatos')
+        .find({ date: today })
+        .value()
+
+      if (todayTomato) {
+        db.get('tomatos')
+          .find({ date: today })
+          .assign({ date: today, round: todayTomato.round + 1 })
+          .write()
+      } else {
+        db.get('tomatos')
+          .push({ date: today, round: 1 })
+          .write()
+      }
+
       remote.getCurrentWindow().hide()
 
       const screenSize = screen.getPrimaryDisplay().size
@@ -70,25 +91,24 @@ export default {
         center: true
       })
       sleepWin.on('close', () => { sleepWin = null })
-      sleepWin.loadURL(sleepURL)
+      sleepWin.loadURL(sleepURL + '?time=' + this.initSleepTime)
     },
     toggleTimer () {
       let self = this
       function countDown () {
         let seconds = Number(self.$data.seconds)
         let minutes = self.minutes
-        // let isBreak = self.isBreakTime
 
         if (seconds === 0) {
           if (minutes === 0) {
-            self.startSleep()
-            // isBreak ? self.minutes = self.initWork : self.minutes = self.initShortBreak
-            // this.isBreakTime = !this.isBreakTime
-          } else { // Remove minute + start counting down from 60 seconds again
+            self.finisheOnce()
+          } else {
+            // Remove minute + start counting down from 60 seconds again
             self.minutes--
             self.seconds = '59'
           }
-        } else { // Remove seconds + if less than 10 prepend 0
+        } else {
+          // Remove seconds + if less than 10 prepend 0
           seconds <= 10 ? self.seconds = `0${self.seconds - 1}` : self.seconds = `${self.seconds - 1}`
         }
       }

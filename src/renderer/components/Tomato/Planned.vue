@@ -2,22 +2,38 @@
   <section class="section tomato-planned has-text-centered">
     <span
       class="icon"
-      v-for="item in plans"
-      :key="item.id"
+      v-for="(item, index) in rounds"
+      :key="item"
     >
-      <i class="fas fa-bullseye"></i>
+      <i
+        class="fas fa-bullseye"
+        :class="todayTomato.round > index ? 'finished' : ''"
+      ></i>
     </span>
   </section>
 </template>
 
 <script>
 
-const plans = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+import db from '../../store'
 
 export default {
   data () {
     return {
-      plans: plans
+      rounds: 10,
+      todayTomato: {
+        round: 0
+      }
+    }
+  },
+  created () {
+    const today = this.todayDate()
+    const todayTomato = db.get('tomatos')
+      .find({ date: today })
+      .value()
+
+    if (todayTomato) {
+      this.todayTomato = todayTomato
     }
   }
 }
@@ -31,5 +47,8 @@ export default {
 .tomato-planned span.icon {
   font-size: 15px;
   color: #ddd;
+}
+.finished {
+  color: #23d160;
 }
 </style>
