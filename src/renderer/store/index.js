@@ -7,11 +7,7 @@ import {
 } from 'electron'
 
 const userDataPath = remote.app.getPath('userData')
-
 const adapter = new FileSync(path.join(userDataPath, '/db.json'))
-
-// console.log('userDataPath = ', userDataPath)
-
 const db = Lowdb(adapter)
 
 // init database

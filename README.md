@@ -4,16 +4,16 @@
 
 ## Feature
 
-- Customize the time of the tomato
-- Sleep lock screen
-- Working frequency statistics
-- Export work record
+- [x] Customize the time of the tomato
+- [x] Working frequency statistics
+- [ ] Sleep lock screen
+- [ ] Export work record
 
 ## Preview
 
-<img src="https://i.loli.net/2018/12/22/5c1d6647b549d.png" width="70%"/>
+<img src="https://i.loli.net/2018/12/22/5c1d6647b549d.png" width="60%"/>
 
-<img src="https://i.loli.net/2018/12/22/5c1d66fa1f3be.png" width="70%"/>
+<img src="https://i.loli.net/2018/12/22/5c1d66fa1f3be.png" width="60%"/>
 
 <img src="https://i.loli.net/2018/12/22/5c1d6b66b35c4.png" />
 
