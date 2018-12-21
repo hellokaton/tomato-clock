@@ -21,7 +21,6 @@ const menuURL = process.env.NODE_ENV === 'development'
 
 const tray = TrayBar({
   index: menuURL,
-  // icon: process.env.NODE_ENV === 'development' ? path.join(__static, 'avatar.jpeg') : path.join(__dirname, '../app/assets/clockTemplate.png'),
   icon: path.join(__static, '/icons/16x16.png'),
   width: 400,
   height: 300,
