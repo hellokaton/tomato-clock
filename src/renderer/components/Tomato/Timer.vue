@@ -79,6 +79,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Contrail+One");
 .tomato-timer {
   padding-top: 3rem;
+  padding-bottom: 1.5rem;
 }
 
 .tomato-timer h1 {
@@ -89,7 +90,8 @@ export default {
 }
 
 .tomato-action {
-  padding-top: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .tomato-action button {

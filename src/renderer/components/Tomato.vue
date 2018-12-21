@@ -15,7 +15,7 @@
             </button>
 
             <b-dropdown-item @click="openSettings">Settings</b-dropdown-item>
-            <b-dropdown-item @click="go('/chart')">Chart</b-dropdown-item>
+            <b-dropdown-item @click="openChart">Chart</b-dropdown-item>
             <b-dropdown-item @click="exit">Exit</b-dropdown-item>
           </b-dropdown>
         </div>
@@ -38,6 +38,12 @@ const settingURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/settings`
   : `file://${__dirname}/index.html/#/settings`
 
+const chartURL = process.env.NODE_ENV === 'development'
+  ? `http://localhost:9080/#/chart`
+  : `file://${__dirname}/index.html/#/chart`
+
+let chartWin, settingsWin
+
 export default {
   name: 'tomato',
   components: { Timer, Planned },
@@ -45,21 +51,38 @@ export default {
     exit () {
       remote.app.quit()
     },
-    go (path) {
-      window.location.hash = path
+    openChart () {
+      remote.getCurrentWindow().hide()
+      if (chartWin == null) {
+        chartWin = new remote.BrowserWindow({
+          width: 680,
+          height: 450,
+          frame: false,
+          center: true
+        })
+        chartWin.on('close', () => {
+          // chartWin = null
+        })
+      }
+      chartWin.loadURL(chartURL)
+      chartWin.show()
     },
     openSettings () {
+      remote.getCurrentWindow().hide()
       // create settings window
-      let settingWin = new remote.BrowserWindow({
-        width: 400,
-        height: 500,
-        frame: false,
-        center: true
-      })
-      settingWin.on('close', () => {
-        settingWin = null
-      })
-      settingWin.loadURL(settingURL)
+      if (settingsWin == null) {
+        settingsWin = new remote.BrowserWindow({
+          width: 400,
+          height: 500,
+          frame: false,
+          center: true
+        })
+        settingsWin.on('close', () => {
+          settingsWin = null
+        })
+      }
+      settingsWin.loadURL(settingURL)
+      settingsWin.show()
     }
   }
 }
@@ -72,7 +95,7 @@ export default {
     rgb(215, 61, 238) 40%,
     rgba(170, 67, 255, 0.755) 100%
   );
-  height: 300px;
+  height: 100%;
   padding: 1.3rem 1rem;
 }
 

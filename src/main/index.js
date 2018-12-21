@@ -26,17 +26,15 @@ let win = null
 function readyMainProcess () {
   if (tray == null) {
     tray = new Tray(path.join(__static, '/icons/16x16.png'))
-    tray.setToolTip('This is my application.')
     tray.on('click', () => {
       win.isVisible() ? win.hide() : win.show()
     })
-    let bounds = tray.getBounds()
-    console.log('bounds:', bounds)
+    const bounds = tray.getBounds()
 
     if (win == null) {
       win = new BrowserWindow({
         width: 400,
-        height: 300,
+        height: 310,
         frame: false,
         x: bounds.x - 200,
         y: bounds.y + 20,
