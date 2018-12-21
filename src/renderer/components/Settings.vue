@@ -3,18 +3,20 @@
     <main>
       This is Settings Page.
       <br>
-      <a href="/">回到首页</a>
+      <a @click="closeMe">Close Me</a>
     </main>
   </div>
 </template> 
  
 <script>
 
+import { remote } from 'electron'
+
 export default {
   name: 'settings',
   methods: {
-    open (link) {
-      this.$electron.shell.openExternal(link)
+    closeMe () {
+      remote.getCurrentWindow().destroy()
     }
   }
 }

@@ -14,7 +14,7 @@
               </span>
             </button>
 
-            <b-dropdown-item @click="go('/settings')">Settings</b-dropdown-item>
+            <b-dropdown-item @click="openSettings">Settings</b-dropdown-item>
             <b-dropdown-item @click="go('/chart')">Chart</b-dropdown-item>
             <b-dropdown-item @click="exit">Exit</b-dropdown-item>
           </b-dropdown>
@@ -34,6 +34,10 @@ import Timer from './Tomato/Timer'
 import Planned from './Tomato/Planned'
 import { remote } from 'electron'
 
+const settingURL = process.env.NODE_ENV === 'development'
+  ? `http://localhost:9080/#/settings`
+  : `file://${__dirname}/index.html/#/settings`
+
 export default {
   name: 'tomato',
   components: { Timer, Planned },
@@ -43,6 +47,19 @@ export default {
     },
     go (path) {
       window.location.hash = path
+    },
+    openSettings () {
+      // create settings window
+      let settingWin = new remote.BrowserWindow({
+        width: 400,
+        height: 500,
+        frame: false,
+        center: true
+      })
+      settingWin.on('close', () => {
+        settingWin = null
+      })
+      settingWin.loadURL(settingURL)
     }
   }
 }
