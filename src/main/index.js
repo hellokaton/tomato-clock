@@ -1,11 +1,12 @@
 'use strict'
 
 import {
-  app
+  app,
+  Tray,
+  BrowserWindow
 } from 'electron'
 
 import path from 'path'
-import TrayBar from 'menubar'
 
 /**
  * Set `__static` path to static files in production
@@ -19,18 +20,40 @@ const menuURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-const tray = TrayBar({
-  index: menuURL,
-  icon: path.join(__static, '/icons/16x16.png'),
-  width: 400,
-  height: 300,
-  showDockIcon: false
-})
+let tray = null
+let win = null
 
-function createWindow () {
-  console.log('启动 app.')
-  tray.showWindow()
+function readyMainProcess () {
+  if (tray == null) {
+    tray = new Tray(path.join(__static, '/icons/16x16.png'))
+    tray.setToolTip('This is my application.')
+    tray.on('click', () => {
+      win.isVisible() ? win.hide() : win.show()
+    })
+    let bounds = tray.getBounds()
+    console.log('bounds:', bounds)
+
+    if (win == null) {
+      win = new BrowserWindow({
+        width: 400,
+        height: 300,
+        frame: false,
+        x: bounds.x - 200,
+        y: bounds.y + 20,
+        center: false,
+        show: process.env.NODE_ENV === 'development'
+      })
+      win.loadURL(menuURL)
+    }
+  }
 }
 
-// app.dock.hide()
-app.on('ready', createWindow)
+app.dock.hide()
+
+app.on('ready', readyMainProcess)
+
+app.on('quit', () => {
+  console.log('quit evetn')
+  tray = null
+  win = null
+})
