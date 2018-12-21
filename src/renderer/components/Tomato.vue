@@ -36,11 +36,11 @@ import { remote } from 'electron'
 
 const settingURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/settings`
-  : `file://${__dirname}/index.html/#/settings`
+  : `file://${__dirname}/#/settings`
 
 const chartURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/chart`
-  : `file://${__dirname}/index.html/#/chart`
+  : `file://${__dirname}/#/chart`
 
 let chartWin, settingsWin
 
