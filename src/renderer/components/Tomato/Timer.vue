@@ -13,10 +13,6 @@
         class="button btn-reset"
         @click="resetUI"
       >RESET</button>
-      <button
-        class="button is-primary"
-        @click="finisheOnce"
-      >TEST</button>
     </section>
   </div>
 </template>

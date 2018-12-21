@@ -50,8 +50,8 @@ export default {
   created () {
     if (chartWin == null) {
       chartWin = new remote.BrowserWindow({
-        width: 960,
-        height: 260,
+        width: 920,
+        height: 360,
         frame: false,
         center: true,
         show: false
@@ -59,10 +59,11 @@ export default {
       chartWin.loadURL(chartURL)
     }
     // create settings window
+    settingsWin = null
     if (settingsWin == null) {
       settingsWin = new remote.BrowserWindow({
         width: 400,
-        height: 300,
+        height: 360,
         frame: false,
         center: true,
         show: false
@@ -79,11 +80,15 @@ export default {
     },
     openChart () {
       remote.getCurrentWindow().hide()
-      chartWin.show()
+      if (!chartWin.isVisible()) {
+        chartWin.show()
+      }
     },
     openSettings () {
       remote.getCurrentWindow().hide()
-      settingsWin.show()
+      if (!settingsWin.isVisible()) {
+        settingsWin.show()
+      }
     }
   }
 }

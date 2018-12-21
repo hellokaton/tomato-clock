@@ -6,17 +6,15 @@ import {
   remote
 } from 'electron'
 
-// 获取 electron 应用的用户目录
-const STORE_PATH = remote.app.getPath('userData')
+const userDataPath = remote.app.getPath('userData')
 
-console.log('STORE_PATH = ', STORE_PATH)
+const adapter = new FileSync(path.join(userDataPath, '/db.json'))
 
-// 初始化 lowdb 读写的 json 文件名以及存储路径
-const adapter = new FileSync(path.join(STORE_PATH, '/data.json'))
+// console.log('userDataPath = ', userDataPath)
 
-// lowdb 接管该文件
 const db = Lowdb(adapter)
 
+// init database
 if (!db.has('setting').value()) {
   db.defaults({
     tomatos: [],
