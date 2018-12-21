@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <div class="has-text-centered title">
-      <h1 class="title is-2">Tomato Round Chart</h1>
+      <h1 class="title is-3">Tomato Round Chart</h1>
     </div>
     <div>
       <calendar-heatmap

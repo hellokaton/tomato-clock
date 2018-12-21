@@ -51,7 +51,7 @@ export default {
     if (chartWin == null) {
       chartWin = new remote.BrowserWindow({
         width: 920,
-        height: 360,
+        height: 340,
         frame: false,
         center: true,
         show: false
@@ -59,11 +59,10 @@ export default {
       chartWin.loadURL(chartURL)
     }
     // create settings window
-    settingsWin = null
     if (settingsWin == null) {
       settingsWin = new remote.BrowserWindow({
         width: 400,
-        height: 360,
+        height: 340,
         frame: false,
         center: true,
         show: false
@@ -80,15 +79,11 @@ export default {
     },
     openChart () {
       remote.getCurrentWindow().hide()
-      if (!chartWin.isVisible()) {
-        chartWin.show()
-      }
+      chartWin.show()
     },
     openSettings () {
       remote.getCurrentWindow().hide()
-      if (!settingsWin.isVisible()) {
-        settingsWin.show()
-      }
+      settingsWin.show()
     }
   }
 }
@@ -112,7 +107,7 @@ export default {
   color: #a4fe65;
 }
 .tomato-footer {
-  padding-top: 0.3rem;
+  padding-top: 1.3rem;
 }
 .tomato-footer .icon {
   color: #ebe7e7;

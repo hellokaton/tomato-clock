@@ -51,7 +51,7 @@ function readyMainProcess () {
 app.on('ready', readyMainProcess)
 
 app.on('quit', () => {
-  console.log('app quit')
+  console.info('app quit')
   mainWin = null
   tray = null
 })

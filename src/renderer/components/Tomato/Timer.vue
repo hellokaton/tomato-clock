@@ -3,16 +3,23 @@
     <section class="section tomato-timer has-text-centered">
       <h1 class="title">{{`${minutes}:${seconds}`}}</h1>
     </section>
-    <section class="section tomato-action has-text-centered">
-      <button
-        class="button is-warning btn-start"
-        @click="toggleTimer"
-        v-text="isTimerActive ? 'PAUSE' : 'START'"
-      >START</button>
-      <button
-        class="button btn-reset"
-        @click="resetUI"
-      >RESET</button>
+    <section class="section tomato-action">
+      <div class="columns is-mobile">
+        <div class="column">
+          <button
+            class="button is-rounded is-warning"
+            @click="toggleTimer"
+            v-text="isTimerActive ? 'PAUSE' : 'START'"
+          >START</button>
+        </div>
+        <div class="column">
+          <button
+            class="button is-rounded is-info"
+            @click="resetUI"
+          >RESET</button>
+        </div>
+      </div>
+
     </section>
   </div>
 </template>
@@ -81,6 +88,7 @@ export default {
 
       const screenSize = screen.getPrimaryDisplay().size
       let sleepWin = new remote.BrowserWindow({
+        parent: remote.getCurrentWindow(),
         width: screenSize.width - 250,
         height: screenSize.height - 200,
         frame: false,
@@ -120,7 +128,7 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Contrail+One");
 .tomato-timer {
-  padding-top: 3rem;
+  padding-top: 2rem;
   padding-bottom: 1.5rem;
 }
 
@@ -137,9 +145,26 @@ export default {
 }
 
 .tomato-action button {
-  width: 150px;
-  height: 40px;
   font-size: 18px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 0 40px;
+  font-family: "Roboto", sans-serif;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.tomato-action button:hover {
+  background-color: #292929;
+  box-shadow: 0px 15px 20px rgba(18, 21, 20, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.tomato-action button:active {
+  background-color: #292929;
+  box-shadow: 0px 15px 20px rgba(18, 21, 20, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
 }
 </style>
