@@ -21,18 +21,18 @@ const menuURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 let tray = null
-let win = null
+let mainWin = null
 
 function readyMainProcess () {
   if (tray == null) {
     tray = new Tray(path.join(__static, '/icons/24x24.png'))
     tray.on('click', () => {
-      win.isVisible() ? win.hide() : win.show()
+      mainWin.isVisible() ? mainWin.hide() : mainWin.show()
     })
     const bounds = tray.getBounds()
 
-    if (win == null) {
-      win = new BrowserWindow({
+    if (mainWin == null) {
+      mainWin = new BrowserWindow({
         width: 400,
         height: 310,
         frame: false,
@@ -41,17 +41,17 @@ function readyMainProcess () {
         closable: false,
         show: process.env.NODE_ENV === 'development'
       })
-      win.loadURL(menuURL)
+      mainWin.loadURL(menuURL)
     }
   }
 }
 
-app.dock.hide()
+// app.dock.hide()
 
 app.on('ready', readyMainProcess)
 
 app.on('quit', () => {
   console.log('app quit')
-  win = null
+  mainWin = null
   tray = null
 })

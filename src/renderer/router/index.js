@@ -20,6 +20,11 @@ export default new Router({
     component: require('@/components/Settings').default
   },
   {
+    path: '/sleeptime',
+    name: 'sleeptime',
+    component: require('@/components/SleepTime').default
+  },
+  {
     path: '*',
     redirect: '/'
   }

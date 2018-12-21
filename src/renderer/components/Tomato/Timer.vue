@@ -13,6 +13,10 @@
         class="button btn-reset"
         @click="resetUI"
       >RESET</button>
+      <button
+        class="button btn-reset"
+        @click="startSleep"
+      >TEST</button>
     </section>
   </div>
 </template>
@@ -20,6 +24,11 @@
 <script>
 
 import db from '../../store'
+import { remote, screen } from 'electron'
+
+const sleepURL = process.env.NODE_ENV === 'development'
+  ? `http://localhost:9080/#/sleeptime`
+  : `file://${__dirname}/#/sleeptime`
 
 export default {
   data () {
@@ -33,10 +42,7 @@ export default {
       isTimerActive: false,
       minutes: 20,
       seconds: '00',
-      timer: null,
-      round: 0,
-      // UI
-      isModalOpen: false
+      timer: null
     }
   },
   created () {
@@ -44,9 +50,6 @@ export default {
     this.minutes = this.initWork
   },
   methods: {
-    toggleModal: function () {
-      this.isModalOpen = !this.isModalOpen
-    },
     resetUI () {
       this.isBreakTime = false
       this.isTimerActive = false
@@ -54,17 +57,33 @@ export default {
       this.seconds = '00'
       clearInterval(this.timer)
     },
+    startSleep () {
+      console.log('完成一个钟，开始休息，重置时间')
+      self.minutes = self.initWork
+      remote.getCurrentWindow().hide()
+
+      const screenSize = screen.getPrimaryDisplay().size
+      let sleepWin = new remote.BrowserWindow({
+        width: screenSize.width - 250,
+        height: screenSize.height - 200,
+        frame: false,
+        center: true
+      })
+      sleepWin.on('close', () => { sleepWin = null })
+      sleepWin.loadURL(sleepURL)
+    },
     toggleTimer () {
       let self = this
       function countDown () {
         let seconds = Number(self.$data.seconds)
         let minutes = self.minutes
-        let isBreak = self.isBreakTime
+        // let isBreak = self.isBreakTime
 
         if (seconds === 0) {
-          if (minutes === 0) { // End of cycle => switch to break / work
-            isBreak ? self.minutes = self.initWork : self.minutes = self.initShortBreak
-            self.isBreakTime = !self.isBreakTime
+          if (minutes === 0) {
+            self.startSleep()
+            // isBreak ? self.minutes = self.initWork : self.minutes = self.initShortBreak
+            // this.isBreakTime = !this.isBreakTime
           } else { // Remove minute + start counting down from 60 seconds again
             self.minutes--
             self.seconds = '59'

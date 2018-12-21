@@ -16,7 +16,7 @@
 
             <b-dropdown-item @click="openSettings">Settings</b-dropdown-item>
             <b-dropdown-item @click="openChart">Chart</b-dropdown-item>
-            <b-dropdown-item @click="exit">Exit</b-dropdown-item>
+            <b-dropdown-item @click="exit">Quit</b-dropdown-item>
           </b-dropdown>
         </div>
       </div>
@@ -47,38 +47,42 @@ let chartWin, settingsWin
 export default {
   name: 'tomato',
   components: { Timer, Planned },
+  created () {
+    if (chartWin == null) {
+      chartWin = new remote.BrowserWindow({
+        width: 960,
+        height: 260,
+        frame: false,
+        center: true,
+        show: false
+      })
+      chartWin.loadURL(chartURL)
+    }
+    // create settings window
+    if (settingsWin == null) {
+      settingsWin = new remote.BrowserWindow({
+        width: 400,
+        height: 300,
+        frame: false,
+        center: true,
+        show: false
+      })
+      settingsWin.loadURL(settingURL)
+    }
+  },
   methods: {
     exit () {
       remote.app.exit()
     },
     openAuthorURL () {
-      window.top.open('https://github.com/biezhi')
+      // window.top.open('https://github.com/biezhi')
     },
     openChart () {
       remote.getCurrentWindow().hide()
-      if (chartWin == null) {
-        chartWin = new remote.BrowserWindow({
-          width: 960,
-          height: 260,
-          frame: false,
-          center: true
-        })
-        chartWin.loadURL(chartURL)
-      }
       chartWin.show()
     },
     openSettings () {
       remote.getCurrentWindow().hide()
-      // create settings window
-      if (settingsWin == null) {
-        settingsWin = new remote.BrowserWindow({
-          width: 400,
-          height: 300,
-          frame: false,
-          center: true
-        })
-        settingsWin.loadURL(settingURL)
-      }
       settingsWin.show()
     }
   }
