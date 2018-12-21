@@ -17,14 +17,7 @@
             <b-dropdown-item @click="go('/settings')">Settings</b-dropdown-item>
             <b-dropdown-item @click="go('/chart')">Chart</b-dropdown-item>
             <b-dropdown-item @click="exit">Exit</b-dropdown-item>
-
           </b-dropdown>
-
-          <!-- <router-link to="/chart">
-            <span class="icon">
-              <i class="fas fa-lg fa-chart-bar"></i>
-            </span>
-          </router-link> -->
         </div>
       </div>
       <timer></timer>

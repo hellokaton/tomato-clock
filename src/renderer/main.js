@@ -2,7 +2,6 @@ import Vue from 'vue'
 
 import App from './App'
 import router from './router'
-import store from './store'
 
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -21,6 +20,5 @@ new Vue({
     App
   },
   router,
-  store,
   template: '<App/>'
 }).$mount('#app')

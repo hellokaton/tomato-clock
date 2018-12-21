@@ -6,7 +6,6 @@ import {
 
 import path from 'path'
 import TrayBar from 'menubar'
-import createMenu from './menu'
 
 /**
  * Set `__static` path to static files in production
@@ -31,9 +30,7 @@ const tray = TrayBar({
 function createWindow () {
   console.log('启动 app.')
   tray.showWindow()
-  createMenu()
 }
 
 // app.dock.hide()
-
 app.on('ready', createWindow)
