@@ -1,21 +1,21 @@
 <template>
   <div>
     <section class="section tomato-timer has-text-centered">
-      <h1 class="title">{{`${minutes}:${seconds}`}}</h1>
+      <h1 class="title">{{ minutes }}:{{ seconds }}</h1>
     </section>
     <section class="section tomato-action">
       <div class="columns is-mobile">
         <div class="column">
           <button
             class="button is-rounded is-warning"
-            @click="toggleTimer"
+            v-on:click="toggleTimer"
             v-text="isTimerActive ? 'PAUSE' : 'START'"
           >START</button>
         </div>
         <div class="column">
           <button
             class="button is-rounded is-info"
-            @click="resetUI"
+            v-on:click="resetUI"
           >RESET</button>
         </div>
       </div>
@@ -25,11 +25,10 @@
 </template>
 
 <script>
-
 import db from '../../store'
 import { remote, screen } from 'electron'
 
-const sleepURL = process.env.NODE_ENV === 'development'
+const sleepURL = remote.process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/sleeptime`
   : `file://${__dirname}/#/sleeptime`
 

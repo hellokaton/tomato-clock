@@ -46,7 +46,7 @@ function readyMainProcess () {
   }
 }
 
-// app.dock.hide()
+app.dock.hide()
 
 app.on('ready', readyMainProcess)
 

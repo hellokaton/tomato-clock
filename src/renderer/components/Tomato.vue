@@ -34,13 +34,13 @@ import Timer from './Tomato/Timer'
 import Planned from './Tomato/Planned'
 import { remote } from 'electron'
 
-const settingURL = process.env.NODE_ENV === 'development'
+const settingURL = remote.process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/settings`
-  : `file://${__dirname}/#/settings`
+  : `file://${__dirname}/index.html#/settings`
 
-const chartURL = process.env.NODE_ENV === 'development'
+const chartURL = remote.process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/chart`
-  : `file://${__dirname}/#/chart`
+  : `file://${__dirname}/index.html#/chart`
 
 let chartWin, settingsWin
 

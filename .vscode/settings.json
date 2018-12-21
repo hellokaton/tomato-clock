@@ -15,5 +15,8 @@
             "language": "javascript",
             "autoFix": true
         }
-    ]
+    ],
+    "eslint.options": {
+        "plugins": ["html", "vue"]
+    }
 }
