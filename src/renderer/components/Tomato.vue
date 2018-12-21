@@ -32,13 +32,13 @@
 <script>
 import Timer from './Tomato/Timer'
 import Planned from './Tomato/Planned'
-import { remote } from 'electron'
+import { remote, shell } from 'electron'
 
-const settingURL = remote.process.env.NODE_ENV === 'development'
+const settingURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/settings`
   : `file://${__dirname}/index.html#/settings`
 
-const chartURL = remote.process.env.NODE_ENV === 'development'
+const chartURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/chart`
   : `file://${__dirname}/index.html#/chart`
 
@@ -51,7 +51,7 @@ export default {
     if (chartWin == null) {
       chartWin = new remote.BrowserWindow({
         width: 920,
-        height: 340,
+        height: 330,
         frame: false,
         center: true,
         show: false
@@ -75,7 +75,7 @@ export default {
       remote.app.exit()
     },
     openAuthorURL () {
-      // window.top.open('https://github.com/biezhi')
+      shell.openExternal('https://github.com/biezhi')
     },
     openChart () {
       remote.getCurrentWindow().hide()
