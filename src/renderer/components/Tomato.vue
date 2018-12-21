@@ -5,7 +5,7 @@
         <div class="is-pulled-right">
           <b-dropdown :mobile-modal="false">
             <button
-              class="button is-primary is-small"
+              class="button is-info is-small"
               slot="trigger"
             >
               <span>Tomato</span>
@@ -60,11 +60,8 @@ export default {
           frame: false,
           center: true
         })
-        chartWin.on('close', () => {
-          // chartWin = null
-        })
+        chartWin.loadURL(chartURL)
       }
-      chartWin.loadURL(chartURL)
       chartWin.show()
     },
     openSettings () {
@@ -77,11 +74,8 @@ export default {
           frame: false,
           center: true
         })
-        settingsWin.on('close', () => {
-          settingsWin = null
-        })
+        settingsWin.loadURL(settingURL)
       }
-      settingsWin.loadURL(settingURL)
       settingsWin.show()
     }
   }

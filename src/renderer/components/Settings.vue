@@ -16,7 +16,7 @@ export default {
   name: 'settings',
   methods: {
     closeMe () {
-      remote.getCurrentWindow().destroy()
+      remote.getCurrentWindow().hide()
     }
   }
 }
