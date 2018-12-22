@@ -9,9 +9,7 @@
               slot="trigger"
             >
               <span>Tomato</span>
-              <span class="icon">
-                <i class="mdi mdi-chevron-down"></i>
-              </span>
+              <b-icon icon="menu-down"></b-icon>
             </button>
 
             <b-dropdown-item @click="openSettings">Settings</b-dropdown-item>
@@ -47,6 +45,11 @@ let chartWin, settingsWin
 export default {
   name: 'tomato',
   components: { Timer, Planned },
+  data () {
+    return {
+      actived: false
+    }
+  },
   created () {
     if (chartWin == null) {
       chartWin = new remote.BrowserWindow({
@@ -72,7 +75,7 @@ export default {
   },
   methods: {
     exit () {
-      remote.app.exit()
+      remote.app.quit()
     },
     openAuthorURL () {
       shell.openExternal('https://github.com/biezhi')
@@ -82,8 +85,8 @@ export default {
       chartWin.show()
     },
     openSettings () {
-      remote.getCurrentWindow().hide()
       settingsWin.show()
+      remote.getCurrentWindow().hide()
     }
   }
 }
