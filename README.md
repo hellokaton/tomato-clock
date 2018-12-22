@@ -8,6 +8,7 @@
 - [x] Working frequency statistics
 - [ ] Sleep lock screen
 - [ ] Export work record
+- [ ] Share to social network
 
 ## Preview
 
