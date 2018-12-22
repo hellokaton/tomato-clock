@@ -97,11 +97,6 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@mdi/font@^3.2.89":
-  version "3.2.89"
-  resolved "http://r.cnpmjs.org/@mdi/font/download/@mdi/font-3.2.89.tgz#91790717881c8839729286e516436e7b9f3d96ea"
-  integrity sha1-kXkHF4gciDlykoblFkNue589luo=
-
 "@types/node@^8.0.24":
   version "8.10.39"
   resolved "http://r.cnpmjs.org/@types/node/download/@types/node-8.10.39.tgz#e7e87ad00364dd7bc485c940926345b8ec1a26ca"
