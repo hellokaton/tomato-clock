@@ -30,24 +30,19 @@ function readyMainProcess () {
       mainWin.isVisible() ? mainWin.hide() : mainWin.show()
     })
     const bounds = tray.getBounds()
-
-    if (mainWin == null) {
-      mainWin = new BrowserWindow({
-        width: 400,
-        height: 300,
-        frame: false,
-        x: bounds.x - 200,
-        y: bounds.y + 20,
-        closable: false,
-        show: process.env.NODE_ENV === 'development'
-      })
-      mainWin.loadURL(menuURL)
-    }
+    mainWin = new BrowserWindow({
+      width: 400,
+      height: 300,
+      frame: false,
+      x: bounds.x - 200,
+      y: bounds.y + 20,
+      show: process.env.NODE_ENV === 'development'
+    })
+    mainWin.loadURL(menuURL)
   }
 }
 
 app.dock.hide()
-
 app.on('ready', readyMainProcess)
 
 app.on('quit', () => {
