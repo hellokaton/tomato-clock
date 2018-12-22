@@ -130,17 +130,15 @@ export default {
   src: url("/static/fonts/PressStart2P-Regular.woff2") format("woff2");
 }
 .tomato-timer {
-  padding-top: 2rem;
-  padding-bottom: 1.5rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
 }
 
 .tomato-timer h1 {
-  /* font-size: 80px; */
-  font-size: 48px;
+  font-size: 50px;
   color: white;
   font-weight: 300;
   font-family: "Press Start 2P", cursive;
-
   text-shadow: 0.2rem 0.3rem 0 #111;
 }
 

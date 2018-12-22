@@ -34,7 +34,7 @@ function readyMainProcess () {
     if (mainWin == null) {
       mainWin = new BrowserWindow({
         width: 400,
-        height: 310,
+        height: 300,
         frame: false,
         x: bounds.x - 200,
         y: bounds.y + 20,
