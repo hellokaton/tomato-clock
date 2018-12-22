@@ -10,7 +10,7 @@
             >
               <span>Tomato</span>
               <span class="icon">
-                <i class="fas fa-chevron-down"></i>
+                <i class="mdi mdi-chevron-down"></i>
               </span>
             </button>
 
@@ -103,9 +103,6 @@ export default {
   max-width: 5rem;
 }
 
-.header .icon {
-  color: #a4fe65;
-}
 .tomato-footer {
   padding-top: 1.3rem;
 }

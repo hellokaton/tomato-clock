@@ -6,8 +6,8 @@
       :key="item"
     >
       <i
-        class="fas fa-bullseye"
-        :class="todayTomato.round > index ? 'finished' : ''"
+        class="mdi"
+        :class="todayTomato.round > index ? 'mdi-check-circle finished' : 'mdi-circle-outline'"
       ></i>
     </span>
   </section>
@@ -35,6 +35,7 @@ export default {
     if (todayTomato) {
       this.todayTomato = todayTomato
     }
+    this.todayTomato.round = 3
   }
 }
 </script>
@@ -45,10 +46,11 @@ export default {
   padding-bottom: 0;
 }
 .tomato-planned span.icon {
-  font-size: 15px;
+  font-size: 18px;
   color: #ddd;
 }
 .finished {
-  color: #23d160;
+  color: #4ec176;
+  text-shadow: 1px 1px 0 #ef0505;
 }
 </style>

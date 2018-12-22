@@ -127,7 +127,7 @@ export default {
 <style scoped>
 @font-face {
   font-family: "Press Start 2P";
-  src: url("/static/fonts/PressStart2P-Regular.woff2") format("woff2");
+  src: url("../../assets/fonts/PressStart2P-Regular.woff2") format("woff2");
 }
 .tomato-timer {
   padding-top: 3rem;

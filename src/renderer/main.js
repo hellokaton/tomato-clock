@@ -3,8 +3,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import '@fortawesome/fontawesome-free/css/all.css'
-
+import './assets/css/materialdesignicons.min.css'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 
