@@ -3,10 +3,13 @@
 import {
   app,
   Tray,
+  ipcMain,
+  dialog,
   BrowserWindow
 } from 'electron'
 
 import path from 'path'
+import fs from 'fs-extra'
 
 /**
  * Set `__static` path to static files in production
@@ -24,6 +27,34 @@ let tray = null
 let mainWin = null
 
 function readyMainProcess () {
+  ipcMain.on('save-dialog', function (event) {
+    const options = {
+      title: '保存图片',
+      filters: [{
+        name: 'Images',
+        extensions: ['png']
+      }]
+    }
+    dialog.showSaveDialog(options, function (filename) {
+      event.sender.send('saved-dialog-ok', filename)
+    })
+  })
+
+  ipcMain.on('SAVE_FILE', (event, path, buffer) => {
+    console.info('event::', event)
+    console.info('path::', path)
+    console.info('buffer::', buffer)
+    fs.outputFile(path, buffer, err => {
+      if (err) {
+        console.log('save file error!!!!!!!', err.message)
+        event.sender.send('ERROR', err.message)
+      } else {
+        console.log('save file ok!!!!!!!')
+        event.sender.send('SAVED_FILE', path)
+      }
+    })
+  })
+
   if (tray == null) {
     tray = new Tray(path.join(__static, '/icons/24x24.png'))
     tray.on('click', () => {

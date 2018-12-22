@@ -3,7 +3,7 @@
     <div class="has-text-centered title">
       <h1 class="title is-3">Tomato Round Chart</h1>
     </div>
-    <div>
+    <div id="heatmap-chart">
       <calendar-heatmap
         tooltip-unit="rounds"
         :values="tomatos"
@@ -12,7 +12,10 @@
       ></calendar-heatmap>
     </div>
     <div class="foot">
-      <button class="button is-warning">Export</button>
+      <button
+        class="button is-warning"
+        @click="exportAsPNG"
+      >Export</button>
       <button
         class="button is-danger"
         @click="closeChart"
@@ -24,7 +27,8 @@
 <script>
 
 import db from '../store'
-import { remote } from 'electron'
+import { remote, ipcRenderer } from 'electron'
+import domtoimage from 'dom-to-image'
 
 export default {
   name: 'chart',
@@ -42,6 +46,28 @@ export default {
   methods: {
     closeChart () {
       remote.getCurrentWindow().hide()
+    },
+    exportAsPNG () {
+      ipcRenderer.on('saved-dialog-ok', function (event, path) {
+        if (!path) path = '无路径'
+        var node = document.getElementById('heatmap-chart')
+        ipcRenderer.on('SAVED_FILE', (event, path) => {
+          console.log('Saved file ' + path)
+        })
+        domtoimage.toBlob(node)
+          .then(function (blob) {
+            let reader = new FileReader()
+            reader.onload = function () {
+              if (reader.readyState === 2) {
+                var buffer = Buffer.from(reader.result)
+                ipcRenderer.send('SAVE_FILE', path, buffer)
+                // console.log(`Saving ${JSON.stringify({ fileName, size: blob.size })}`)
+              }
+            }
+            reader.readAsArrayBuffer(blob)
+          })
+      })
+      ipcRenderer.send('save-dialog')
     }
   }
 }
