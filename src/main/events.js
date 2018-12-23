@@ -7,7 +7,7 @@ import fs from 'fs-extra'
 
 export default () => {
   // show save file dialog
-  ipcMain.on('show-file-dialog', function (event, options) {
+  ipcMain.on('show-file-dialog', (event, options) => {
     dialog.showSaveDialog(options, function (filename) {
       event.sender.send('show-file-dialog-ok', filename)
     })

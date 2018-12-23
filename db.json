@@ -4,6 +4,6 @@
     "work_mins": 25,
     "sleep_mins": 5,
     "is_play_sound": true,
-    "is_dock_icon": true
+    "is_dock_icon": false
   }
 }

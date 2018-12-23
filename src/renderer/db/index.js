@@ -43,8 +43,6 @@ const DB = {
       }
     }
 
-    db.defaults({}).write()
-
     Vue.prototype.$db = db
   }
 }

@@ -27,11 +27,14 @@ let tray = null
 let mainWin = null
 
 function readyMainProcess () {
-  ipcEvent()
   if (tray == null) {
     tray = new Tray(path.join(__static, '/images/icon_normal/icon.png'))
     tray.on('click', () => {
-      mainWin.isVisible() ? mainWin.hide() : mainWin.show()
+      if (mainWin.isVisible()) {
+        mainWin.hide()
+      } else {
+        mainWin.show()
+      }
     })
 
     const bounds = tray.getBounds()
@@ -44,6 +47,7 @@ function readyMainProcess () {
       show: process.env.NODE_ENV === 'development'
     })
     mainWin.loadURL(menuURL)
+    ipcEvent()
   }
 
   const setOSTheme = () => {
