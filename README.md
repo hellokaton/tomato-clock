@@ -46,4 +46,5 @@ yarn run lint
 - [electron-vue](https://github.com/SimulatedGREG/electron-vue)
 - [Buefy](https://buefy.github.io)
 - [lowdb](https://github.com/typicode/lowdb)
+- [dom-to-image](https://github.com/tsayen/dom-to-image)
 - [vue-calendar-heatmap](https://github.com/WildCodeSchool/vue-calendar-heatmap)

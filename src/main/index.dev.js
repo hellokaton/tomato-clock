@@ -9,7 +9,7 @@
 
 // Install `electron-debug` with `devtron`
 require('electron-debug')({
-  showDevTools: true
+  showDevTools: false
 })
 
 // Install `vue-devtools`

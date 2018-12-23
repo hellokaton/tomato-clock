@@ -3,13 +3,12 @@
 import {
   app,
   Tray,
-  ipcMain,
-  dialog,
-  BrowserWindow
+  BrowserWindow,
+  systemPreferences
 } from 'electron'
 
 import path from 'path'
-import fs from 'fs-extra'
+import ipcEvent from './events'
 
 /**
  * Set `__static` path to static files in production
@@ -27,39 +26,13 @@ let tray = null
 let mainWin = null
 
 function readyMainProcess () {
-  ipcMain.on('save-dialog', function (event) {
-    const options = {
-      title: '保存图片',
-      filters: [{
-        name: 'Images',
-        extensions: ['png']
-      }]
-    }
-    dialog.showSaveDialog(options, function (filename) {
-      event.sender.send('saved-dialog-ok', filename)
-    })
-  })
-
-  ipcMain.on('SAVE_FILE', (event, path, buffer) => {
-    console.info('event::', event)
-    console.info('path::', path)
-    console.info('buffer::', buffer)
-    fs.outputFile(path, buffer, err => {
-      if (err) {
-        console.log('save file error!!!!!!!', err.message)
-        event.sender.send('ERROR', err.message)
-      } else {
-        console.log('save file ok!!!!!!!')
-        event.sender.send('SAVED_FILE', path)
-      }
-    })
-  })
-
+  ipcEvent()
   if (tray == null) {
-    tray = new Tray(path.join(__static, '/icons/24x24.png'))
+    tray = new Tray(path.join(__static, '/images/icon_normal/icon.png'))
     tray.on('click', () => {
       mainWin.isVisible() ? mainWin.hide() : mainWin.show()
     })
+
     const bounds = tray.getBounds()
     mainWin = new BrowserWindow({
       width: 400,
@@ -70,6 +43,21 @@ function readyMainProcess () {
       show: process.env.NODE_ENV === 'development'
     })
     mainWin.loadURL(menuURL)
+  }
+
+  if (process.platform === 'darwin') {
+    const setOSTheme = () => {
+      if (systemPreferences.isDarkMode()) {
+        tray.setImage(path.join(__static, '/images/icon_dark/icon.png'))
+      } else {
+        tray.setImage(path.join(__static, '/images/icon_normal/icon.png'))
+      }
+    }
+    systemPreferences.subscribeNotification(
+      'AppleInterfaceThemeChangedNotification',
+      setOSTheme
+    )
+    setOSTheme()
   }
 }
 

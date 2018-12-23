@@ -48,26 +48,30 @@ export default {
       remote.getCurrentWindow().hide()
     },
     exportAsPNG () {
-      ipcRenderer.on('saved-dialog-ok', function (event, path) {
-        if (!path) path = '无路径'
-        var node = document.getElementById('heatmap-chart')
-        ipcRenderer.on('SAVED_FILE', (event, path) => {
-          console.log('Saved file ' + path)
-        })
-        domtoimage.toBlob(node)
-          .then(function (blob) {
-            let reader = new FileReader()
-            reader.onload = function () {
-              if (reader.readyState === 2) {
-                var buffer = Buffer.from(reader.result)
-                ipcRenderer.send('SAVE_FILE', path, buffer)
-                // console.log(`Saving ${JSON.stringify({ fileName, size: blob.size })}`)
+      ipcRenderer.on('show-file-dialog-ok', function (event, path) {
+        if (path) {
+          let node = document.getElementById('heatmap-chart')
+          domtoimage.toBlob(node)
+            .then(function (blob) {
+              let reader = new FileReader()
+              reader.onload = function () {
+                if (reader.readyState === 2) {
+                  var buffer = Buffer.from(reader.result)
+                  ipcRenderer.send('save-file', path, buffer)
+                }
               }
-            }
-            reader.readAsArrayBuffer(blob)
-          })
+              reader.readAsArrayBuffer(blob)
+            })
+        }
       })
-      ipcRenderer.send('save-dialog')
+      const options = {
+        title: '保存图片',
+        filters: [{
+          name: 'Images',
+          extensions: ['png']
+        }]
+      }
+      ipcRenderer.send('show-file-dialog', options)
     }
   }
 }
