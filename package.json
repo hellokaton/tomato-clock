@@ -42,7 +42,7 @@
       ]
     },
     "mac": {
-      "icon": "static/icons/tomato.icns"
+      "icon": "build/icons/tomato.icns"
     }
   },
   "dependencies": {

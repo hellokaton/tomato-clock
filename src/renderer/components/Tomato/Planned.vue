@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 .tomato-planned {
-  padding-top: 1rem;
+  padding-top: 0;
   padding-bottom: 0;
 }
 .tomato-planned span.icon {

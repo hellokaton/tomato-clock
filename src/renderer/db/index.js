@@ -30,7 +30,12 @@ const DB = {
     if (!db.has('setting').value()) {
       db.defaults({
         tomatos: [],
-        setting: {}
+        setting: {
+          'work_mins': 25,
+          'sleep_mins': 5,
+          'is_play_sound': true,
+          'is_dock_icon': false
+        }
       }).write()
     } else {
       if (db.get('setting').get('is_dock_icon').value()) {

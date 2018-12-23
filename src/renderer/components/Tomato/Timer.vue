@@ -33,6 +33,9 @@ const sleepURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/sleeptime`
   : `file://${__dirname}/#/sleeptime`
 
+const soundURL = process.env.NODE_ENV === 'development'
+  ? '/static/audio/dida.wav' : 'static/audio/dida.wav'
+
 export default {
   data () {
     return {
@@ -57,7 +60,7 @@ export default {
     this.minutes = this.initWork
   },
   mounted () {
-    this.$refs.didaAudio.src = '/static/audio/dida.wav'
+    this.$refs.didaAudio.src = soundURL
     this.$refs.didaAudio.volume = 0.4
   },
   methods: {
