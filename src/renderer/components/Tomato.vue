@@ -74,6 +74,9 @@ export default {
     }
   },
   methods: {
+    fixedDropdownMenu () {
+      document.getElementsByClassName('dropdown')[0].classList.remove('is-active')
+    },
     exit () {
       this.$electron.remote.app.quit()
     },
@@ -81,12 +84,14 @@ export default {
       this.$electron.shell.openExternal('https://github.com/biezhi')
     },
     openChart () {
+      this.fixedDropdownMenu()
       this.$electron.remote.getCurrentWindow().hide()
       chartWin.show()
     },
     openSettings () {
-      settingsWin.show()
+      this.fixedDropdownMenu()
       this.$electron.remote.getCurrentWindow().hide()
+      settingsWin.show()
     }
   }
 }
