@@ -6,13 +6,14 @@
 
 - [x] Customize the time of the tomato
 - [x] Working frequency statistics
+- [x] Export work record
 - [ ] Sleep lock screen
-- [ ] Export work record
+- [ ] Setting sound
 - [ ] Share to social network
 
 ## Preview
 
-<img src="https://i.loli.net/2018/12/22/5c1d6647b549d.png" width="60%"/>
+<img src="https://i.loli.net/2018/12/23/5c1f6413ccfbb.png" width="60%"/>
 
 <img src="https://i.loli.net/2018/12/22/5c1d66fa1f3be.png" width="60%"/>
 
