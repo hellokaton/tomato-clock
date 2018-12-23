@@ -1,5 +1,10 @@
 {
-  "tomatos": [],
+  "tomatos": [
+    {
+      "date": "2018-12-23",
+      "round": 5
+    }
+  ],
   "setting": {
     "work_mins": 25,
     "sleep_mins": 5,

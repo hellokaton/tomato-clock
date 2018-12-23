@@ -106,6 +106,7 @@ export default {
     },
     saveSetting () {
       this.$db.set('setting', this.setting).write()
+      this.$electron.ipcRenderer.send('change-settings', this.setting)
       this.$toast.open({
         message: 'Save Setting Successfuly!',
         type: 'is-dark'

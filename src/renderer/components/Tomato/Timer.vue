@@ -29,9 +29,9 @@
 </template>
 
 <script>
-const sleepURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080/#/sleeptime`
-  : `file://${__dirname}/#/sleeptime`
+// const sleepURL = process.env.NODE_ENV === 'development'
+//   ? `http://localhost:9080/#/sleeptime`
+//   : `file://${__dirname}/#/sleeptime`
 
 const soundURL = process.env.NODE_ENV === 'development'
   ? '/static/audio/dida.wav' : 'static/audio/dida.wav'
@@ -54,10 +54,18 @@ export default {
     }
   },
   created () {
-    this.initWork = this.$db.get('setting').get('work_mins').value()
-    this.initSleepTime = this.$db.get('setting').get('sleep_mins').value()
-    this.isShowSound = this.$db.get('setting').get('is_play_sound').value()
-    this.minutes = this.initWork
+    function initSettings (self, setting) {
+      self.initWork = setting.work_mins
+      self.initSleepTime = setting.sleep_mins
+      self.isShowSound = setting.is_play_sound
+    }
+    let slef = this
+    initSettings(slef, slef.$db.get('setting').value())
+    self.minutes = self.initWork
+
+    this.$electron.remote.ipcMain.on('change-settings', (e, setting) => {
+      initSettings(slef, setting)
+    })
   },
   mounted () {
     this.$refs.didaAudio.src = soundURL
@@ -107,20 +115,19 @@ export default {
           .write()
       }
 
-      let app = this.$electron.remote
+      // let app = this.$electron.remote
+      // app.getCurrentWindow().hide()
 
-      app.getCurrentWindow().hide()
-
-      const screenSize = screen.getPrimaryDisplay().size
-      let sleepWin = new app.BrowserWindow({
-        parent: app.getCurrentWindow(),
-        width: screenSize.width - 250,
-        height: screenSize.height - 200,
-        frame: false,
-        center: true
-      })
-      sleepWin.on('close', () => { sleepWin = null })
-      sleepWin.loadURL(sleepURL + '?time=' + this.initSleepTime)
+      // const screenSize = screen.getPrimaryDisplay().size
+      // let sleepWin = new app.BrowserWindow({
+      //   parent: app.getCurrentWindow(),
+      //   width: screenSize.width - 250,
+      //   height: screenSize.height - 200,
+      //   frame: false,
+      //   center: true
+      // })
+      // sleepWin.on('close', () => { sleepWin = null })
+      // sleepWin.loadURL(sleepURL + '?time=' + this.initSleepTime)
     },
     toggleTimer () {
       let self = this
@@ -129,8 +136,8 @@ export default {
         let minutes = self.minutes
         self.playSound(true)
 
-        if (seconds === 0) {
-          if (minutes === 0) {
+        if (seconds <= 0) {
+          if (minutes <= 0) {
             self.finisheOnce()
           } else {
             // Remove minute + start counting down from 60 seconds again

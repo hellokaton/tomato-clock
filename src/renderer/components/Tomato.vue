@@ -90,7 +90,7 @@ export default {
     },
     openSettings () {
       this.fixedDropdownMenu()
-      this.$electron.remote.getCurrentWindow().hide()
+      // this.$electron.remote.getCurrentWindow().hide()
       settingsWin.show()
     }
   }
