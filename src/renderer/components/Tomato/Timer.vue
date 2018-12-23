@@ -45,7 +45,6 @@ export default {
       initSleepTime: 5,
 
       // App state
-      isBreakTime: false,
       isTimerActive: false,
       minutes: 20,
       seconds: '00',
@@ -58,10 +57,13 @@ export default {
       self.initWork = setting.work_mins
       self.initSleepTime = setting.sleep_mins
       self.isShowSound = setting.is_play_sound
+      if (!self.isTimerActive) {
+        self.minutes = self.initWork
+      }
     }
+
     let slef = this
     initSettings(slef, slef.$db.get('setting').value())
-    self.minutes = self.initWork
 
     this.$electron.remote.ipcMain.on('change-settings', (e, setting) => {
       initSettings(slef, setting)
@@ -85,7 +87,6 @@ export default {
       this.$refs.didaAudio.currentTime = 0
     },
     resetUI () {
-      this.isBreakTime = false
       this.isTimerActive = false
       this.minutes = this.initWork
       this.seconds = '00'
@@ -97,7 +98,6 @@ export default {
       clearInterval(this.timer)
       this.minutes = this.initWork
       this.isTimerActive = false
-      this.isBreakTime = true
 
       const today = this.todayDate()
       const todayTomato = this.$db.get('tomatos')
