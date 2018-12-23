@@ -30,7 +30,6 @@
 <script>
 import Timer from './Tomato/Timer'
 import Planned from './Tomato/Planned'
-import { remote, shell } from 'electron'
 
 const settingURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/settings`
@@ -51,6 +50,7 @@ export default {
     }
   },
   created () {
+    let remote = this.$electron.remote
     if (chartWin == null) {
       chartWin = new remote.BrowserWindow({
         width: 920,
@@ -75,18 +75,18 @@ export default {
   },
   methods: {
     exit () {
-      remote.app.quit()
+      this.$electron.remote.app.quit()
     },
     openAuthorURL () {
-      shell.openExternal('https://github.com/biezhi')
+      this.$electron.shell.openExternal('https://github.com/biezhi')
     },
     openChart () {
-      remote.getCurrentWindow().hide()
+      this.$electron.remote.getCurrentWindow().hide()
       chartWin.show()
     },
     openSettings () {
       settingsWin.show()
-      remote.getCurrentWindow().hide()
+      this.$electron.remote.getCurrentWindow().hide()
     }
   }
 }

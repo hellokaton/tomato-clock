@@ -25,9 +25,6 @@
 </template> 
  
 <script>
-
-import db from '../store'
-import { remote, ipcRenderer } from 'electron'
 import domtoimage from 'dom-to-image'
 
 export default {
@@ -38,17 +35,18 @@ export default {
     }
   },
   created () {
-    this.tomatos = db.get('tomatos').value()
+    this.tomatos = this.$db.get('tomatos').value()
       .map(t => {
         return { date: t.date, count: t.round }
       })
   },
   methods: {
     closeChart () {
-      remote.getCurrentWindow().hide()
+      this.$electron.remote.getCurrentWindow().hide()
     },
     exportAsPNG () {
-      ipcRenderer.on('show-file-dialog-ok', function (event, path) {
+      let ipc = this.$electron.ipcRenderer
+      ipc.on('show-file-dialog-ok', function (event, path) {
         if (path) {
           let node = document.getElementById('heatmap-chart')
           domtoimage.toBlob(node)
@@ -57,7 +55,7 @@ export default {
               reader.onload = function () {
                 if (reader.readyState === 2) {
                   var buffer = Buffer.from(reader.result)
-                  ipcRenderer.send('save-file', path, buffer)
+                  ipc.send('save-file', path, buffer)
                 }
               }
               reader.readAsArrayBuffer(blob)
@@ -71,7 +69,7 @@ export default {
           extensions: ['png']
         }]
       }
-      ipcRenderer.send('show-file-dialog', options)
+      ipc.send('show-file-dialog', options)
     }
   }
 }

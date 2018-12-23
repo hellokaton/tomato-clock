@@ -25,10 +25,7 @@
 </template>
 
 <script>
-import db from '../../store'
-import { remote, screen } from 'electron'
-
-const sleepURL = remote.process.env.NODE_ENV === 'development'
+const sleepURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#/sleeptime`
   : `file://${__dirname}/#/sleeptime`
 
@@ -49,8 +46,8 @@ export default {
     }
   },
   created () {
-    this.initWork = parseInt(db.get('setting').get('work_mins').value())
-    this.initSleepTime = parseInt(db.get('setting').get('sleep_mins').value())
+    this.initWork = parseInt(this.$db.get('setting').get('work_mins').value())
+    this.initSleepTime = parseInt(this.$db.get('setting').get('sleep_mins').value())
     this.minutes = this.initWork
   },
   methods: {
@@ -68,26 +65,28 @@ export default {
       this.isBreakTime = true
 
       const today = this.todayDate()
-      const todayTomato = db.get('tomatos')
+      const todayTomato = this.$db.get('tomatos')
         .find({ date: today })
         .value()
 
       if (todayTomato) {
-        db.get('tomatos')
+        this.$db.get('tomatos')
           .find({ date: today })
           .assign({ date: today, round: todayTomato.round + 1 })
           .write()
       } else {
-        db.get('tomatos')
+        this.$db.get('tomatos')
           .push({ date: today, round: 1 })
           .write()
       }
 
-      remote.getCurrentWindow().hide()
+      let app = this.$electron.remote
+
+      app.getCurrentWindow().hide()
 
       const screenSize = screen.getPrimaryDisplay().size
-      let sleepWin = new remote.BrowserWindow({
-        parent: remote.getCurrentWindow(),
+      let sleepWin = new app.BrowserWindow({
+        parent: app.getCurrentWindow(),
         width: screenSize.width - 250,
         height: screenSize.height - 200,
         frame: false,

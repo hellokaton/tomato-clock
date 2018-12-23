@@ -53,10 +53,6 @@
 </template> 
  
 <script>
-
-import { remote } from 'electron'
-import db from '../store'
-
 export default {
   name: 'settings',
   data () {
@@ -70,14 +66,14 @@ export default {
     }
   },
   created () {
-    this.setting = db.get('setting').value()
+    this.setting = this.$db.get('setting').value()
   },
   methods: {
     cancelSetting () {
-      remote.getCurrentWindow().hide()
+      this.$electron.remote.getCurrentWindow().hide()
     },
     saveSetting () {
-      db.set('setting', this.setting).write()
+      this.$db.set('setting', this.setting).write()
       this.$toast.open({
         message: 'Save Setting Successfuly!',
         type: 'is-dark'

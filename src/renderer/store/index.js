@@ -1,4 +1,4 @@
-import Lowdb from 'lowdb'
+import lowdb from 'lowdb'
 import FileSync from 'lowdb/adapters/FileSync'
 import path from 'path'
 
@@ -6,19 +6,41 @@ import {
   remote
 } from 'electron'
 
-const userDataPath = remote.app.getPath('userData')
-const adapter = new FileSync(path.join(userDataPath, '/db.json'))
-const db = Lowdb(adapter)
+const isDev = process.env.NODE_ENV === 'development'
 
-// init database
-if (!db.has('setting').value()) {
-  db.defaults({
-    tomatos: [],
-    setting: {
-      'work_mins': 25,
-      'sleep_mins': 5
+const DB = {
+  install (Vue, options) {
+    if (!options) {
+      options = {
+        name: 'db.json'
+      }
     }
-  }).write()
+
+    let dbPath
+    if (isDev) {
+      dbPath = options.name
+    } else {
+      dbPath = path.join(remote.app.getPath('userData'), options.name)
+    }
+
+    const adapter = new FileSync(dbPath)
+    const db = lowdb(adapter)
+
+    // init database
+    if (!db.has('setting').value()) {
+      db.defaults({
+        tomatos: [],
+        setting: {
+          'work_mins': 25,
+          'sleep_mins': 5
+        }
+      }).write()
+    }
+
+    db.defaults({}).write()
+
+    Vue.prototype.$db = db
+  }
 }
 
-export default db
+export default DB

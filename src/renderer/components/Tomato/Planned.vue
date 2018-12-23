@@ -14,9 +14,6 @@
 </template>
 
 <script>
-
-import db from '../../store'
-
 export default {
   data () {
     return {
@@ -28,7 +25,7 @@ export default {
   },
   created () {
     const today = this.todayDate()
-    const todayTomato = db.get('tomatos')
+    const todayTomato = this.$db.get('tomatos')
       .find({ date: today })
       .value()
 
