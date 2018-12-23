@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import App from './App'
 import router from './router'
-import DB from './store'
+import DB from './db'
 
 import './assets/css/materialdesignicons.min.css'
 import 'buefy/dist/buefy.css'

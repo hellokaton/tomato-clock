@@ -19,7 +19,11 @@
           >RESET</button>
         </div>
       </div>
-
+      <audio
+        ref='didaAudio'
+        loop
+      >
+      </audio>
     </section>
   </div>
 </template>
@@ -42,23 +46,43 @@ export default {
       isTimerActive: false,
       minutes: 20,
       seconds: '00',
-      timer: null
+      timer: null,
+      isShowSound: true
     }
   },
   created () {
-    this.initWork = parseInt(this.$db.get('setting').get('work_mins').value())
-    this.initSleepTime = parseInt(this.$db.get('setting').get('sleep_mins').value())
+    this.initWork = this.$db.get('setting').get('work_mins').value()
+    this.initSleepTime = this.$db.get('setting').get('sleep_mins').value()
+    this.isShowSound = this.$db.get('setting').get('is_play_sound').value()
     this.minutes = this.initWork
   },
+  mounted () {
+    this.$refs.didaAudio.src = '/static/audio/dida.wav'
+    this.$refs.didaAudio.volume = 0.4
+  },
   methods: {
+    playSound (play) {
+      if (this.isShowSound) {
+        if (play) {
+          this.$refs.didaAudio.play()
+        } else {
+          this.$refs.didaAudio.pause()
+        }
+      } else {
+        this.$refs.didaAudio.pause()
+      }
+      this.$refs.didaAudio.currentTime = 0
+    },
     resetUI () {
       this.isBreakTime = false
       this.isTimerActive = false
       this.minutes = this.initWork
       this.seconds = '00'
+      this.playSound(false)
       clearInterval(this.timer)
     },
     finisheOnce () {
+      this.playSound(false)
       clearInterval(this.timer)
       this.minutes = this.initWork
       this.isTimerActive = false
@@ -100,6 +124,7 @@ export default {
       function countDown () {
         let seconds = Number(self.$data.seconds)
         let minutes = self.minutes
+        self.playSound(true)
 
         if (seconds === 0) {
           if (minutes === 0) {
@@ -118,6 +143,9 @@ export default {
       // toggle timer
       self.isTimerActive ? clearInterval(self.timer) : self.timer = setInterval(countDown, 1000)
       self.isTimerActive = !self.isTimerActive
+      if (!self.isTimerActive) {
+        self.playSound(false)
+      }
     }
   }
 }

@@ -32,7 +32,6 @@ export default {
     if (todayTomato) {
       this.todayTomato = todayTomato
     }
-    this.todayTomato.round = 3
   }
 }
 </script>

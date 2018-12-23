@@ -3,6 +3,7 @@
 import {
   app,
   Tray,
+  Menu,
   BrowserWindow,
   systemPreferences
 } from 'electron'
@@ -45,27 +46,34 @@ function readyMainProcess () {
     mainWin.loadURL(menuURL)
   }
 
-  if (process.platform === 'darwin') {
-    const setOSTheme = () => {
+  const setOSTheme = () => {
+    if (systemPreferences.isDarkMode()) {
+      tray.setImage(path.join(__static, '/images/icon_dark/icon.png'))
+    } else {
+      tray.setImage(path.join(__static, '/images/icon_normal/icon.png'))
+    }
+  }
+  systemPreferences.subscribeNotification(
+    'AppleInterfaceThemeChangedNotification',
+    () => {
       if (systemPreferences.isDarkMode()) {
         tray.setImage(path.join(__static, '/images/icon_dark/icon.png'))
       } else {
         tray.setImage(path.join(__static, '/images/icon_normal/icon.png'))
       }
     }
-    systemPreferences.subscribeNotification(
-      'AppleInterfaceThemeChangedNotification',
-      setOSTheme
-    )
-    setOSTheme()
-  }
+  )
+  setOSTheme()
+
+  // empty menu
+  const menu = Menu.buildFromTemplate([])
+  Menu.setApplicationMenu(menu)
 }
 
 app.dock.hide()
 app.on('ready', readyMainProcess)
 
 app.on('quit', () => {
-  console.info('app quit')
   mainWin = null
   tray = null
 })

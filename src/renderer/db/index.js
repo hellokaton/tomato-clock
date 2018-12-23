@@ -30,11 +30,12 @@ const DB = {
     if (!db.has('setting').value()) {
       db.defaults({
         tomatos: [],
-        setting: {
-          'work_mins': 25,
-          'sleep_mins': 5
-        }
+        setting: {}
       }).write()
+    } else {
+      if (db.get('setting').get('is_dock_icon').value()) {
+        remote.app.dock.show()
+      }
     }
 
     db.defaults({}).write()
