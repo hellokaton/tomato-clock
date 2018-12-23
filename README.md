@@ -7,8 +7,8 @@
 - [x] Customize the time of the tomato
 - [x] Working frequency statistics
 - [x] Export work record
+- [x] Setting sound
 - [ ] Sleep lock screen
-- [ ] Setting sound
 - [ ] Share to social network
 
 ## Preview
