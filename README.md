@@ -30,9 +30,6 @@ yarn run dev
 
 # build electron application for production
 yarn run build
-
-# lint all JS/Vue component files in `src/`
-yarn run lint
 ```
 
 ---
