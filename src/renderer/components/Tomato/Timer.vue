@@ -33,6 +33,12 @@
 //   ? `http://localhost:9080/#/sleeptime`
 //   : `file://${__dirname}/#/sleeptime`
 
+import http from 'http'
+import https from 'https'
+import fs from 'fs'
+
+const BG_API = 'http://www.splashbase.co/api/v1/images/random'
+
 const soundURL = process.env.NODE_ENV === 'development'
   ? '/static/audio/dida.wav' : 'static/audio/dida.wav'
 
@@ -49,7 +55,8 @@ export default {
       minutes: 20,
       seconds: '00',
       timer: null,
-      isShowSound: true
+      isShowSound: true,
+      isStartDownload: false
     }
   },
   created () {
@@ -72,6 +79,34 @@ export default {
   mounted () {
     this.$refs.didaAudio.src = soundURL
     this.$refs.didaAudio.volume = 0.4
+
+    http.get(BG_API, (response) => {
+      let body = ''
+      response.on('data', (chunk) => {
+        body += chunk
+      })
+      response.on('end', () => {
+        console.log('Got a response: ', body)
+        let imgURL = JSON.parse(body).large_url
+        let file = fs.createWriteStream(__static + '/images/bg.jpg')
+        console.log('开始下载')
+        https.get(imgURL, (response) => {
+          response.pipe(file)
+          console.log('下载完成')
+        })
+      })
+    })
+  },
+  watch: {
+    minutes: function (newMinutes, oldMinutes) {
+      // if (newMinutes <= 2 && !this.isStartDownload) {
+      //   this.isStartDownload = true
+      //   let file = fs.createWriteStream('/Users/biezhi/workspace/wwwroot/kc/vuejs/tomato-clock/static/images/file.jpg')
+      //   http.get('https://splashbase.s3.amazonaws.com/travelcoffeebook/large/tumblr_oebohhw5qr1ta0hnbo1_1280.jpg', (response) => {
+      //     response.pipe(file)
+      //   })
+      // }
+    }
   },
   methods: {
     playSound (play) {
