@@ -50,7 +50,7 @@ export default {
   min-height: 768px;
   height: 100%;
   overflow: hidden;
-  background-image: url("/static/bg.jpeg");
+  background-image: url("/static/bg.jpg");
   background-size: cover;
 }
 </style>

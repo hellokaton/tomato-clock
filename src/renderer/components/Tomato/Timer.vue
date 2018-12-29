@@ -29,13 +29,13 @@
 </template>
 
 <script>
-// const sleepURL = process.env.NODE_ENV === 'development'
-//   ? `http://localhost:9080/#/sleeptime`
-//   : `file://${__dirname}/#/sleeptime`
-
 import http from 'http'
 import https from 'https'
 import fs from 'fs'
+
+const sleepURL = process.env.NODE_ENV === 'development'
+  ? `http://localhost:9080/#/sleeptime`
+  : `file://${__dirname}/#/sleeptime`
 
 const BG_API = 'http://www.splashbase.co/api/v1/images/random'
 
@@ -145,19 +145,19 @@ export default {
           .write()
       }
 
-      // let app = this.$electron.remote
-      // app.getCurrentWindow().hide()
+      let app = this.$electron.remote
+      app.getCurrentWindow().hide()
 
-      // const screenSize = screen.getPrimaryDisplay().size
-      // let sleepWin = new app.BrowserWindow({
-      //   parent: app.getCurrentWindow(),
-      //   width: screenSize.width - 250,
-      //   height: screenSize.height - 200,
-      //   frame: false,
-      //   center: true
-      // })
-      // sleepWin.on('close', () => { sleepWin = null })
-      // sleepWin.loadURL(sleepURL + '?time=' + this.initSleepTime)
+      const screenSize = screen.getPrimaryDisplay().size
+      let sleepWin = new app.BrowserWindow({
+        parent: app.getCurrentWindow(),
+        width: screenSize.width - 250,
+        height: screenSize.height - 200,
+        frame: false,
+        center: true
+      })
+      sleepWin.on('close', () => { sleepWin = null })
+      sleepWin.loadURL(sleepURL + '?time=' + this.initSleepTime)
     },
     toggleTimer () {
       let self = this
